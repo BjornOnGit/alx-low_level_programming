@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "main.h"
 /**
  * *argstostr - concatenates all arguments of the program.
  * @ac: argument count.
