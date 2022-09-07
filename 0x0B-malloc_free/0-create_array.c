@@ -14,9 +14,10 @@ char *create_array(unsigned int size, char a)
 
     if (size == 0 || n == 0)
             return (NULL);
-    
+
     while (size--)
             n[size] = a;
+
     return (n);
 }
 
