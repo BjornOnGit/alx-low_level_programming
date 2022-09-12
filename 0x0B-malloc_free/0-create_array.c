@@ -21,4 +21,3 @@ char *create_array(unsigned int size, char a)
 
     return (n);
 }
-
