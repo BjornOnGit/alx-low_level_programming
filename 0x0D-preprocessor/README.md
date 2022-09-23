@@ -1,2 +1,2 @@
 #!/bin/bash
-This repo contains tasks preprocessor
+This repo contains tasks on preprocessor
