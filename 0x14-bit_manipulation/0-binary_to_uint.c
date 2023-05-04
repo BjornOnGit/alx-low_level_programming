@@ -31,13 +31,3 @@ unsigned int binary_to_uint(const char *b){
 
     return num;
 }
-
-unsigned int binary_to_uint(const char *b);
-
-int main(int argc, char const *argv[])
-{
-    const char *b = "1010";
-    unsigned int num = binary_to_uint(b);
-    printf("The unsigned integer value of %s is %u\n", b, num);
-    return 0;
-}
