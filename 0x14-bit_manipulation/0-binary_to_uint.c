@@ -1,33 +1,43 @@
 /*
- * File: 0-binary_to_uint.c
- * Auth: Eze Francis Ogonnaya
- */
-
+* File: 0-binary_to_uint.c
+* Auth: Eze Francis Ogonnaya
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
 
-unsigned int binary_to_uint(const char *b){
-    /* Check for invalid input by iterating with a for loop and then an if condition*/
+/**
+* binary_to_uint - the function name
+* @b: parameter of type const char *.
+* Return: unsigned int .
+*/
+unsigned int binary_to_uint(const char *b)
+{
+/** Check for invalid input by
+* iterating with a for loop
+* and then an if condition
+*/
+	for (int i = 0; b[i] != '\0'; i++)
+	{
+		if (b[i] != '0' && b[i] != '1')
+		{
+			printf("That input is invalid: %s\n", b);
+			return (0);
+		}
+	}
+/** assign and initialize
+  *  a value of zero
+  * to the unsigned integer
+*/
+	unsigned int num = 0;
 
-    for ( int i = 0; b[i] != '\0'; i++)
-    {
-        if (b[i] != '0' && b[i] != '1')
-        {
-            printf("That input is invalid: %s\n", b);
-            return 0;
-        }
-        
-    }
-
-    /* assign and initialize a value of zero to the unsigned integer*/
-    unsigned int num = 0;
-
-    /*iterate through the binary number and calculate the value of the unsigned integer*/
-    for ( int i = 0; b[i] != '\0'; i++)
-    {
-        num = (num << 1) | (b[i] - '0');
-    }
-
-    return num;
+/** iterate through the binary number
+* and calculate the value
+* of the unsigned integer
+*/
+	for (int i = 0; b[i] != '\0'; i++)
+	{
+		num = (num << 1) | (b[i] - '0');
+	}
+	return (num);
 }
