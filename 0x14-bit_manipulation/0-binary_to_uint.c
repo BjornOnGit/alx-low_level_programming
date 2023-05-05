@@ -13,31 +13,29 @@
 */
 unsigned int binary_to_uint(const char *b)
 {
-/** Check for invalid input by
-* iterating with a for loop
-* and then an if condition
+/** assign and initialize
+*  a value of zero
+* to the unsigned integer
 */
-	for (int i = 0; b[i] != '\0'; i++)
+	unsigned int num = 0, run = 1;
+	int ass;
+
+	if (!b)
 	{
-		if (b[i] != '0' && b[i] != '1')
+		return (0);
+	}
+	for (ass = 0; b[ass];)
+	{
+		ass++;
+	}
+	for (ass -= 1; ass >= 0; ass--)
+	{
+		if (b[ass] != '0' && b[ass] != '1')
 		{
-			printf("That input is invalid: %s\n", b);
 			return (0);
 		}
-	}
-/** assign and initialize
-  *  a value of zero
-  * to the unsigned integer
-*/
-	unsigned int num = 0;
-
-/** iterate through the binary number
-* and calculate the value
-* of the unsigned integer
-*/
-	for (int i = 0; b[i] != '\0'; i++)
-	{
-		num = (num << 1) | (b[i] - '0');
+		num += (b[ass] - '0') * run;
+		run *= 2;
 	}
 	return (num);
 }
