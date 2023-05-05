@@ -1,5 +1,5 @@
 /**
-* File: 0-binary_to_uint.c
+* File: 1-print_binary.c
 * Auth: Eze Francis Ogonnaya
 */
 #include <stdio.h>
