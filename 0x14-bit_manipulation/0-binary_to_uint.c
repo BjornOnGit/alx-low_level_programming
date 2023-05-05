@@ -1,4 +1,4 @@
-/*
+/**
 * File: 0-binary_to_uint.c
 * Auth: Eze Francis Ogonnaya
 */
