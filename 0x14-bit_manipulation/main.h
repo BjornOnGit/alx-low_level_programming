@@ -2,7 +2,7 @@
 #define MAIN_H
 
 /*
- * File: lists.h
+ * File: main.h
  * Auth: Eze Francis Ogonnaya
  * Desc: Header file containing prototypes and definitions for all functions
  *       and types written in the 00x14-bit_manipulation directory.
