@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char *buff_create(char *file);
+char *buff_create(const char *file);
 void close_file(int fd);
 
 /**
@@ -16,7 +16,7 @@ void close_file(int fd);
  *
  * Return: A pointer to the newly-allocated buffer.
  */
-char *buff_create(char *file)
+char *buff_create(const char *file)
 {
 	char *buff;
 
