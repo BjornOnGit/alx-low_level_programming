@@ -23,7 +23,6 @@ void print_elf_header(Elf64_Ehdr *header)
 {
 	printf("ELF Header:\n");
 	printf("  Magic:   ");
-	int i;
 	for (int i = 0; i < EI_NIDENT; i++)
 	{
 		printf("%x ", header->e_ident[i]);
