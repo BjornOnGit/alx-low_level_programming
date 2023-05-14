@@ -21,7 +21,6 @@ void print_error(char *message)
 
 void print_elf_header(Elf64_Ehdr *header)
 {
-	Elf64_Ehdr *header = (Elf64_Ehdr *) header;
 	printf("ELF Header:\n");
 	printf("  Magic:   ");
 	int i;
@@ -50,6 +49,7 @@ int main(int argc, char const *argv[])
 {
 	const char *filename;
 	Elf64_Ehdr header;
+	print_elf_header(&header);
 
 	if (argc != 2)
 	{
@@ -75,7 +75,7 @@ int main(int argc, char const *argv[])
 	{
 		print_error("Not an ELF file");
 	}
-	print_elf_header(&header);
+	
 	if (close(fd) == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
