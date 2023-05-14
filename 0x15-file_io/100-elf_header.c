@@ -21,6 +21,7 @@ void print_error(char *message)
 
 void print_elf_header(Elf64_Ehdr *header)
 {
+	int i;
 	printf("ELF Header:\n");
 	printf("  Magic:   ");
 	for (int i = 0; i < EI_NIDENT; i++)
@@ -46,7 +47,6 @@ void print_elf_header(Elf64_Ehdr *header)
  */
 int main(int argc, char const *argv[])
 {
-	const char *filename;
 	Elf64_Ehdr header;
 	print_elf_header(&header);
 
