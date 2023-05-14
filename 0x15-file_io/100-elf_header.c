@@ -21,11 +21,12 @@ void print_error(char *message)
 
 void print_elf_header(Elf64_Ehdr *header)
 {
+	Elf64_Ehdr *header = (Elf64_Ehdr *) header;
 	printf("ELF Header:\n");
 	printf("  Magic:   ");
 	for (int i = 0; i < EI_NIDENT; i++)
 	{
-		printf("%02x ", header->e_ident[i]);
+		printf("%x ", header->e_ident[i]);
 	}
 	printf("\n");
 	printf("  Class:                             %s\n", header->e_ident[EI_CLASS] == ELFCLASS32 ? "ELF32" : "ELF64");
@@ -46,22 +47,22 @@ void print_elf_header(Elf64_Ehdr *header)
  */
 int main(int argc, char const *argv[])
 {
+	Elf64_Ehdr header;
+	ssize_t bytes_read = read(fd, &header, sizeof(header));
+	print_elf_header(&header);
+
 	if (argc != 2)
 	{
 		dprintf(STDERR_FILENO, "Usage: %s elf_filename\n", argv[0]);
 		return (97);
 	}
-	char *filename = argv[1];
+	const char *filename = argv[1];
 	int fd = open(filename, O_RDONLY);
 
 	if (fd == -1)
 	{
 		print_error("Cannot open file");
 	}
-
-	Elf64_Ehdr header;
-
-	ssize_t bytes_read = read(fd, &header, sizeof(header));
 
 	if (bytes_read == -1)
 	{
@@ -72,7 +73,7 @@ int main(int argc, char const *argv[])
 	{
 		print_error("Not an ELF file");
 	}
-	print_elf_header(&header);
+
 	if (close(fd) == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
