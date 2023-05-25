@@ -9,11 +9,11 @@
 /**
   * flip_bits - counts the number of bits needed
   * to flip from one number to another.
-  * @n: the number 
+  * @n: the number
   * @m: the number to flip into
-  * Return: count - the number of bits required 
-  * for the flip 
- **/
+  * Return: count - the number of bits required
+  * for the flip
+  */
 unsigned int flip_bits(unsigned long int n, unsigned long int m)
 {
 	unsigned int var = n ^ m, count = 0;

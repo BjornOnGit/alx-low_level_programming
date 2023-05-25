@@ -12,7 +12,7 @@
   * @index: the given index
   * Return: -1 where there's an error
   * otherwise, the value is set to 0
- **/
+  */
 int clear_bit(unsigned long int *n, unsigned int index)
 {
 	if (index >= sizeof(unsigned int) * 8)

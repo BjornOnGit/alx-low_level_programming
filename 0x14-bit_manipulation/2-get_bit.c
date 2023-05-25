@@ -11,7 +11,7 @@
   * @n: the bit
   * @index: The point at which the value is gotten - they start from 0
   * Return: -1 where there is an error otherwise, the bit is at index
- **/
+  */
 int get_bit(unsigned long int n, unsigned int index)
 {
 	if (index >= sizeof(unsigned int) * 8)

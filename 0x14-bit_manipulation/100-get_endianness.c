@@ -10,7 +10,7 @@
   * get_endianness - checks the endianness
   * Return: 1 when it's a little endian
   *         0 when it's a big endian
- **/
+  */
 int get_endianness(void)
 {
 	int num = 1;
