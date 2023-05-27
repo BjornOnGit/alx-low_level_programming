@@ -7,45 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-void close_file(int fd);
-
-/**
- * buff_create - Allocates 1024 bytes for a buffer.
- * @file: The file for which the buffer is storing characters.
- *
- * Return: buff
- */
-char *buff_create(const char *file);
-char *buff_create(const char *file)
-{
-	char *buff;
-
-	buff = malloc(sizeof(char) * 1024);
-	if (buff == NULL)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file);
-		exit(99);
-	}
-	return (buff);
-}
-
-/**
- * close_file - Closes file descriptors.
- * @fd: The file descriptor to be closed.
- */
-void close_file(int fd)
-{
-	int c;
-
-	c = close(fd);
-	if (c == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-		exit(100);
-	}
-}
-
 /**
  * main - Copies the contents of a file to another file.
  * @argc: The number of arguments supplied to the program.
@@ -60,37 +21,48 @@ void close_file(int fd)
  */
 int main(int argc, char const *argv[])
 {
-	int from, to, rd, wr;
-	char *buff;
+	int fd_r, fd_w, x, m, n;
+	char buf[BUFSIZ];
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Usage: copy file_from file_to\n");
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-	buff = buff_create(argv[2]);
-	from = open(argv[1], O_RDONLY);
-	rd = read(from, buff, 1024);
-	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	do {
-		if (from == -1 || rd == -1)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-			free(buff);
-			exit(98);
-		}
-		wr = write(to, buff, rd);
-		if (to == -1 || wr == -1)
+	fd_r = open(argv[1], O_RDONLY);
+	if (fd_r < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		exit(98);
+	}
+	fd_w = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	while ((x = read(fd_r, buf, BUFSIZ)) > 0)
+	{
+		if (fd_w < 0 || write(fd_w, buf, x) != x)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			free(buff);
+			close(fd_r);
 			exit(99);
 		}
-		rd = read(from, buff, 1024);
-		to = open(argv[2], O_WRONLY | O_APPEND);
-		} while (rd > 0);
-		free(buff);
-		close_file(from);
-		close_file(to);
-		return (0);
 	}
+	if (x < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		exit(98);
+	}
+	m = close(fd_r);
+	n = close(fd_w);
+	if (m < 0 || n < 0)
+	{
+		if (m < 0)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_r);
+		}
+		if (n < 0)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_w);
+		}
+		exit(100);
+	}
+	return (0);
+}
